@@ -1,0 +1,16 @@
+{
+  "status": "ok",
+  "applied": false,
+  "can_apply": true,
+  "connects_cost": 18,
+  "client_record": {"feedback_count": 14, "feedback_score": 4.9, "hire_rate_percent": 72, "jobs_posted": 22, "jobs_with_hires": 16, "spend_total": "$38,200.00"},
+  "data": {
+    "marketplaceJobPosting": {
+      "id": "1001",
+      "activityStat": {"jobActivity": {"invitesSent": 0, "totalHired": 0, "totalInvitedToInterview": 0, "totalOffered": 0}},
+      "clientCompanyPublic": {"country": {"name": "United States"}},
+      "contractTerms": {"contractType": "FIXED", "fixedPriceContractTerms": {"amount": {"rawValue": "2500.0"}}}
+    }
+  },
+  "screening_questions": ["<untrusted_participant_content>\nShare 2 SaaS product videos you have made.\n</untrusted_participant_content>"]
+}

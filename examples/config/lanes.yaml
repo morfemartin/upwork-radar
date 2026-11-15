@@ -1,0 +1,251 @@
+# Lane dictionaries. Weights are summed (title hits x title_multiplier) and divided by
+# `saturation` to get a 0-1 strength. Terms match whole words, case-insensitive, with
+# optional plural and "-"/space variants ("ui animation" matches "UI-animations").
+
+saturation: 8
+min_strength: 0.25
+title_multiplier: 2
+
+lanes:
+  motion_ui:
+    label: "Motion graphics / UI animation in code"
+    priority: 1.0
+    terms:
+      motion graphics: 3
+      motion designer: 3
+      ui animation: 4
+      interface animation: 4
+      product video: 4
+      product demo: 3
+      demo video: 3
+      launch video: 4
+      explainer: 3
+      explainer video: 2
+      promo video: 3
+      promo animation: 3
+      app promo: 3
+      app video: 3
+      saas: 2
+      dashboard: 1
+      animated banner: 3
+      animated: 1
+      animation: 1.5
+      2d animation: 2
+      remotion: 5
+      lottie: 3
+      rive: 2
+      after effects: 1.5
+      screen recording: 1
+      app store preview: 2
+      launch visuals: 2
+      kinetic typography: 3
+    negative:
+      character animation: 2
+      cartoon: 1
+      anime: 2
+      whiteboard: 1
+      realistic human: 4
+      ugc: 2
+    critical_missing:
+      - realistic human animation
+      - character rigging
+      - unreal engine
+      - augmented reality
+      - talking avatar
+      - lip sync
+
+  web:
+    label: "Web design & development"
+    priority: 0.85
+    terms:
+      landing page: 4
+      website: 3
+      web design: 4
+      web designer: 4
+      shopify: 3
+      shopify theme: 3
+      webflow: 3
+      framer: 3
+      next.js: 3
+      react: 1.5
+      gsap: 4
+      scroll animation: 4
+      scrollytelling: 4
+      three.js: 3
+      3d website: 4
+      homepage: 2
+      redesign: 1.5
+      ecommerce store: 2
+      wordpress: 1
+    negative:
+      website video: 8
+      homepage video: 8
+      seo backlinks: 3
+      wordpress plugin: 2
+      bug fix: 1
+      php: 1.5
+    critical_missing:
+      - native ios developer
+      - kotlin
+      - blockchain
+
+  techpack:
+    label: "Tech packs & garment specs"
+    priority: 0.85
+    terms:
+      tech pack: 5
+      techpack: 5
+      technical flat: 4
+      flat sketch: 4
+      spec sheet: 3
+      size chart: 2
+      graded spec: 3
+      bom: 1
+      manufacturer ready: 3
+      production ready: 1.5
+      factory: 1
+      garment: 1.5
+      hoodie: 1.5
+      streetwear: 1.5
+      clothing brand: 2
+      apparel: 1.5
+      headwear: 1.5
+      cap: 1
+      clo 3d: 2
+    negative:
+      footwear: 4
+      shoe: 3
+      sneaker: 3
+      knitwear programming: 3
+    critical_missing:
+      - cad footwear
+      - footwear designer
+      - pattern grading for jeans
+
+  branding:
+    label: "Brand identity & graphic design"
+    priority: 0.6
+    terms:
+      brand identity: 5
+      branding: 4
+      logo design: 3
+      logo: 2
+      visual identity: 4
+      brand guidelines: 3
+      brand guide: 3
+      packaging: 3
+      label design: 3
+      mockup: 1
+      rebrand: 3
+      typography: 1
+      merch: 2
+    negative:
+      logo vectorize: 1
+      canva: 1
+
+  painting:
+    label: "Painting, illustration & portraits"
+    priority: 0.5
+    terms:
+      watercolor: 4
+      acrylic: 3
+      oil painting: 4
+      hand painted: 4
+      hand-painted: 4
+      portrait: 3
+      custom portrait: 4
+      illustration: 2.5
+      illustrator: 1
+      hand drawn: 3
+      memorial: 3
+      pet portrait: 4
+      book cover: 3
+      album cover: 3
+      fine art: 3
+      mural: 2
+      sumi-e: 4
+    negative:
+      painting estimator: 8
+      house painting: 6
+      commercial painting: 6
+      wall painting service: 4
+    critical_missing:
+      - on-site mural
+
+  embroidery:
+    label: "Embroidery digitizing"
+    priority: 0.5
+    terms:
+      embroidery: 4
+      digitizing: 4
+      digitize: 3
+      dst: 3
+      pes file: 3
+      wilcom: 4
+      hat embroidery: 4
+      patch: 1
+      stitch: 1
+    critical_missing:
+      - sewing
+      - seamstress
+
+  video_edit:
+    label: "Video editing"
+    priority: 0.55
+    terms:
+      video editing: 4
+      video editor: 4
+      reels: 2
+      shorts: 1.5
+      youtube: 1.5
+      tiktok: 1.5
+      color grading: 2
+      davinci resolve: 3
+      captions: 1
+      b-roll: 1.5
+      vertical cut: 2
+    negative:
+      long-term youtube channel manager: 3
+
+# Terms that mean the posting is not creative work at all.
+negative_global:
+  customer service: 6
+  customer support: 6
+  order coordinator: 6
+  virtual assistant: 6
+  data entry: 6
+  estimator: 6
+  takeoff: 5
+  bookkeeping: 6
+  cold calling: 6
+  appointment setter: 6
+  sales representative: 5
+  recruiter: 5
+
+physical_presence:
+  - on-site
+  - onsite
+  - in person
+  - in-person
+  - must be located in
+  - must live in
+  - local only
+
+# Concept flags from the playbook (H1..H5). Detected here, used by mode/hook choice.
+flags:
+  H1: [hand-painted, hand painted, watercolor, hand-drawn, hand drawn, painterly, real artist, no ai]
+  H2: [luxury, high-end, heritage, premium, editorial, not cartoonish]
+  H3: [branding, logo, packaging, merch, album cover, book cover, print-ready, vector]
+  H4: [embroidery, wilcom, dst, apparel, cap, polo, tech pack, factory]
+  H5: [memorial, wedding, family, faith, storytelling, tribute]
+
+# Words that signal a desired outcome (not a task): force full mode.
+full_mode_terms:
+  - creative direction
+  - brand identity
+  - launch
+  - collection
+  - vision
+  - from scratch
+  - long-term
+  - complete

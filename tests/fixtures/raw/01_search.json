@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "jobs": [
+    {
+      "id": "1001",
+      "title": "Launch video for our SaaS dashboard (60s) + 3 vertical cuts",
+      "description": "<untrusted_participant_content>\nWe are a B2B SaaS for logistics teams and need a 60-75 second product launch video for our landing page.\n\nDeliverables:\n- 60-75s horizontal explainer with animated UI of our real dashboard\n- 3 vertical cuts of 15-30s with captions\n- Voiceover, music and sound design\n- Brand colors and fonts provided\n\nWe will share Figma files and screen recordings. Please share SaaS product videos you have made.\n</untrusted_participant_content>",
+      "skills": ["Motion Graphics", "Explainer Video", "UI Animation"],
+      "job_type": "fixed",
+      "budget": "2500.00",
+      "duration": "Less than 1 month",
+      "experience_level": "expert",
+      "published_date": "2026-11-15T10:00:00Z",
+      "proposal_count": 4,
+      "job_activity": {"invited_to_interview": 0, "invites_sent": 0, "total_hired": 0, "total_offered": 0},
+      "client": {"country": "USA", "rating": 4.9, "total_posted_jobs": 22, "total_reviews": 14, "total_spent": "$38,200.00", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021001?utm_source=claude"
+    },
+    {
+      "id": "1002",
+      "title": "App launch visuals: store screenshots, short promo animation and social graphics",
+      "description": "We're planning ahead and want to gather quotes now; work starts when our launch date is confirmed. 6 store screenshots, a 15-30s promo animation of the app workflow, 5 social posts.",
+      "skills": [],
+      "job_type": "fixed",
+      "budget": "500.00",
+      "duration": "Less than 1 month",
+      "published_date": "2026-11-14T12:00:00Z",
+      "proposal_count": 33,
+      "job_activity": {"invited_to_interview": 0, "invites_sent": 0, "total_hired": 0, "total_offered": 0},
+      "client": {"country": "United Kingdom", "rating": 5, "total_posted_jobs": 8, "total_reviews": 1, "total_spent": "$914.45", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021002"
+    },
+    {
+      "id": "1003",
+      "title": "Premium Streetwear Designer Needed - Fitted Hoodie Design & Tech Pack",
+      "description": "Launching my premium streetwear brand. One fitted zip-up hoodie, 400-450 GSM, quality embroidery and custom details. I need original designs, front and back mockups and a complete production-ready tech pack. Long-term designer wanted.",
+      "skills": ["Tech Pack", "Fashion Design", "Sweatshirts & Hoodies"],
+      "job_type": "hourly",
+      "duration": "Less than 1 month",
+      "published_date": "2026-11-15T12:40:00Z",
+      "proposal_count": 12,
+      "client": {"country": "United States", "total_posted_jobs": 3},
+      "url": "https://www.upwork.com/jobs/~021003"
+    },
+    {
+      "id": "1004",
+      "title": "Painting Estimator for commercial painting jobs",
+      "description": "We need an experienced painting estimator to do quantity takeoffs from bid drawings and specs. Bluebeam experience.",
+      "skills": ["Construction Estimating"],
+      "job_type": "hourly",
+      "budget": "12.00–20.00/hr",
+      "published_date": "2026-11-15T01:55:00Z",
+      "proposal_count": 22,
+      "client": {"country": "USA", "total_posted_jobs": 2, "total_spent": "$40.00", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021004"
+    },
+    {
+      "id": "1005",
+      "title": "Order Coordinator & Customer Service Specialist - Hand-Painted Art Brand",
+      "description": "Own each order of our hand-painted canvas art. Customer service tickets in Help Scout, shipping and upsells.",
+      "skills": ["Customer Service"],
+      "job_type": "fixed",
+      "budget": "180.00",
+      "published_date": "2026-11-15T19:10:00Z",
+      "proposal_count": 12,
+      "client": {"country": "Hong Kong", "rating": 4.92, "total_posted_jobs": 673, "total_reviews": 193, "total_spent": "$118,394.43", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021005"
+    },
+    {
+      "id": "1006",
+      "title": "Experienced Artist for Wall Arts and Portrait Painting",
+      "description": "Custom wall art pieces and portrait painting based on client specifications.",
+      "skills": ["Portrait Art", "Painting"],
+      "job_type": "fixed",
+      "budget": "500.00",
+      "published_date": "2026-11-15T08:07:00Z",
+      "proposal_count": 6,
+      "client": {"country": "India"},
+      "url": "https://www.upwork.com/jobs/~021006"
+    },
+    {
+      "id": "1007",
+      "title": "CAD Footwear Designer for Tech Packs",
+      "description": "I need an experienced CAD footwear designer to convert my 2D designs into factory-ready tech packs. Footwear experience is essential.",
+      "skills": ["CAD"],
+      "job_type": "hourly",
+      "budget": "15.00–30.00/hr",
+      "duration": "1 to 3 months",
+      "published_date": "2026-11-15T10:18:00Z",
+      "proposal_count": 3,
+      "client": {"country": "United Kingdom", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021007"
+    },
+    {
+      "id": "1008",
+      "title": "Product launch videos for consumer AI app (talking avatar experience)",
+      "description": "Bold, snappy product launch videos of our talking avatar. Vertical 9:16 and horizontal. Share 2-3 app videos.",
+      "skills": ["AI-Generated Video", "Video Editing"],
+      "job_type": "hourly",
+      "budget": "20.00–50.00/hr",
+      "duration": "1 to 3 months",
+      "published_date": "2026-11-14T18:31:00Z",
+      "proposal_count": 70,
+      "job_activity": {"invited_to_interview": 5, "invites_sent": 0, "total_hired": 0, "total_offered": 0},
+      "client": {"country": "USA", "rating": 5, "total_posted_jobs": 5, "total_reviews": 2, "total_spent": "$50,572.21", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021008"
+    },
+    {
+      "id": "1009",
+      "title": "Brand identity and packaging for a craft coffee label",
+      "description": "Complete brand identity: logo, label design and packaging mockups for a new coffee brand.",
+      "skills": ["Brand Identity", "Packaging Design"],
+      "job_type": "fixed",
+      "budget": "1200.00",
+      "published_date": "2026-11-15T09:00:00Z",
+      "proposal_count": 9,
+      "job_activity": {"invited_to_interview": 1, "invites_sent": 0, "total_hired": 1, "total_offered": 0},
+      "client": {"country": "Canada", "rating": 5, "total_posted_jobs": 6, "total_reviews": 4, "total_spent": "$6,000.00", "verification_status": "VERIFIED"},
+      "url": "https://www.upwork.com/jobs/~021009"
+    }
+  ]
+}

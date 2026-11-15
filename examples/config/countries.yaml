@@ -1,0 +1,14 @@
+# Points by client country (0-3). Banned countries are a hard knockout.
+tiers:
+  3: [United States, Australia, United Kingdom]
+  2: [Canada, Singapore, Germany, France, Netherlands, Belgium, Switzerland, Austria, Ireland, Luxembourg,
+      Denmark, Sweden, Norway, Finland, Iceland, United Arab Emirates, New Zealand]
+  1: [Spain, Italy, Portugal, Poland, Czech Republic, Greece, Estonia, Lithuania, Latvia, Croatia, Slovenia,
+      Hungary, Romania, Mexico, Brazil, Argentina, Chile, Colombia, Peru, Uruguay, Costa Rica, Panama,
+      Puerto Rico, Israel, Japan, South Korea, Hong Kong, Qatar, Saudi Arabia]
+banned: [India, Pakistan, Bangladesh, Nigeria]
+aliases:
+  USA: United States
+  US: United States
+  UK: United Kingdom
+  UAE: United Arab Emirates

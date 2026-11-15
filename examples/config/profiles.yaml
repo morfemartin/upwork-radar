@@ -1,0 +1,24 @@
+# Sending identities. lane_strength = credibility in that lane (reviews + visible portfolio), 0-1.
+# Ties within one point go to the lowest `preference`.
+identities:
+  - id: alex_freelancer
+    label: "Alex (freelancer profile)"
+    sender: alex
+    via: freelancer
+    preference: 1
+    lane_strength: {branding: 0.9, painting: 0.9, motion_ui: 0.4, web: 0.4}
+  - id: studio_agency
+    label: "Example Studio (agency)"
+    sender: sam
+    via: agency
+    preference: 2
+    lane_strength: {branding: 0.7, web: 0.6, motion_ui: 0.5, techpack: 0.6}
+
+people:
+  alex: {name: Alex, slack_id: ""}
+  sam: {name: Sam, slack_id: ""}
+
+lane_assignee:
+  techpack: sam
+default_assignee: sam
+identity_floor: 0.6

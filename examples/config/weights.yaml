@@ -1,0 +1,40 @@
+# Factor weights (relative). score = 100 * weighted mean of factors (each 0-1).
+weights:
+  client: 1.6          # country tier, payment, hire rate, spend, rating
+  competition: 1.4     # proposals already sent, interviews, freshness
+  portfolio_fit: 1.8   # how close a real portfolio piece is to what they ask
+  skill_combo: 1.2     # how many of our lanes the job combines
+  pay_size: 1.0        # how much we would charge
+  pay_speed: 0.8       # how fast we would get paid
+  specificity: 0.5     # how concrete the brief is
+  lane_priority: 1.0   # strategic focus: motion > web = techpack > branding > painting
+
+# P(hire) = sigmoid(bias + slope * score/100). Heuristic until outcomes calibrate it:
+# score 50 -> ~8%, 65 -> ~17%, 80 -> ~31%.
+bias: -4.0
+slope: 3.0
+
+notify_threshold: 55
+max_age_hours: 72
+crowded_proposals: 50
+crowded_min_fit: 0.85
+pay_reference: 3000
+connect_value_usd: 0.15
+full_mode_min_chars: 1200
+
+# value by proposals already sent (upper bound exclusive)
+competition_buckets:
+  - {max: 5, value: 1.0}
+  - {max: 10, value: 0.85}
+  - {max: 15, value: 0.75}
+  - {max: 20, value: 0.55}
+  - {max: 50, value: 0.3}
+  - {max: null, value: 0.05}
+
+# estimated billable hours for hourly jobs, by Upwork duration
+duration_hours:
+  Less than 1 month: 25
+  1 to 3 months: 60
+  3 to 6 months: 150
+  More than 6 months: 300
+  default: 30

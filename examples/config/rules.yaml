@@ -1,0 +1,18 @@
+fast_words: [80, 180]
+full_words: [400, 700]
+hook_types: [A, B, C, D, E]
+# Names that must not appear in the first sentence (R1).
+name_tokens: [Alex, Studio Example]
+banned_phrases:
+  - I am the perfect fit
+  - I am excited to apply
+  - look forward to hearing from you
+  - feel free to contact me
+  - hope this finds you well
+  - dear hiring manager
+  - I have read your job description
+  - awarded
+  - exclusive
+  - no applications
+  - cheapest
+  - 100% satisfaction

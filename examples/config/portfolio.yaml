@@ -1,0 +1,22 @@
+# Only real, deliverable work goes here. Proposals may only cite these ids (rule R7).
+not_uploaded_factor: 0.75
+items:
+  - id: saas-launch-video
+    name: "Launch video for a project-management SaaS"
+    lanes: [motion_ui]
+    tags: [saas, launch video, ui animation, dashboard, product demo, explainer]
+    problem: "Intangible software product needs a 60s video that shows the real UI"
+    phrase_en: "a 60-second launch video for a project-management SaaS, with the real UI rebuilt and animated in code"
+    uploaded: true
+  - id: apparel-techpack
+    name: "Streetwear hoodie tech pack"
+    lanes: [techpack]
+    tags: [tech pack, hoodie, streetwear, factory, size chart]
+    problem: "Founder has a design but no factory-ready spec"
+    phrase_en: "a factory-ready tech pack for a streetwear hoodie, produced without a single factory question"
+  - id: brand-identity
+    name: "Travel brand identity"
+    lanes: [branding]
+    tags: [brand identity, logo, packaging, mockup]
+    problem: "New brand needs a full identity"
+    phrase_en: "a complete identity for a travel brand, from symbol to realistic mockups"

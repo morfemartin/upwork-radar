@@ -1,0 +1,13 @@
+# Searches the fetch agent runs each cycle with the Upwork MCP `find_jobs` tool.
+# `action` and `params` are passed through verbatim. Save every response to RUN/raw/.
+defaults:
+  verified_payment_only: true
+  limit: 10
+  include_full_details: true
+searches:
+  - {lane: motion_ui, action: search, params: {title: "motion graphics"}}
+  - {lane: motion_ui, action: search, params: {query: "SaaS product launch video UI animation"}}
+  - {lane: web, action: search, params: {title: "landing page"}}
+  - {lane: techpack, action: search, params: {title: "tech pack"}}
+  - {lane: branding, action: search, params: {title: "brand identity"}}
+  - {lane: any, action: smart_search, params: {mode: most_recent, days_posted: 1}}
