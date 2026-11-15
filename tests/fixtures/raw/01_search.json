@@ -27,7 +27,7 @@
       "published_date": "2026-11-14T12:00:00Z",
       "proposal_count": 33,
       "job_activity": {"invited_to_interview": 0, "invites_sent": 0, "total_hired": 0, "total_offered": 0},
-      "client": {"country": "United Kingdom", "rating": 5, "total_posted_jobs": 8, "total_reviews": 1, "total_spent": "$914.45", "verification_status": "VERIFIED"},
+      "client": {"country": "United Kingdom", "rating": 5, "total_posted_jobs": 8, "total_reviews": 1, "total_spent": "$880.00", "verification_status": "VERIFIED"},
       "url": "https://www.upwork.com/jobs/~021002"
     },
     {
@@ -63,7 +63,7 @@
       "budget": "180.00",
       "published_date": "2026-11-15T19:10:00Z",
       "proposal_count": 12,
-      "client": {"country": "Hong Kong", "rating": 4.92, "total_posted_jobs": 673, "total_reviews": 193, "total_spent": "$118,394.43", "verification_status": "VERIFIED"},
+      "client": {"country": "Hong Kong", "rating": 4.92, "total_posted_jobs": 400, "total_reviews": 193, "total_spent": "$95,000.00", "verification_status": "VERIFIED"},
       "url": "https://www.upwork.com/jobs/~021005"
     },
     {
@@ -102,7 +102,7 @@
       "published_date": "2026-11-14T18:31:00Z",
       "proposal_count": 70,
       "job_activity": {"invited_to_interview": 5, "invites_sent": 0, "total_hired": 0, "total_offered": 0},
-      "client": {"country": "USA", "rating": 5, "total_posted_jobs": 5, "total_reviews": 2, "total_spent": "$50,572.21", "verification_status": "VERIFIED"},
+      "client": {"country": "USA", "rating": 5, "total_posted_jobs": 5, "total_reviews": 2, "total_spent": "$42,000.00", "verification_status": "VERIFIED"},
       "url": "https://www.upwork.com/jobs/~021008"
     },
     {
