@@ -14,13 +14,16 @@ weights:
 bias: -4.0
 slope: 3.0
 
-notify_threshold: 55
+notify_threshold: 60
 max_age_hours: 72
 crowded_proposals: 50
 crowded_min_fit: 0.85
 pay_reference: 3000
 connect_value_usd: 0.15
 full_mode_min_chars: 1200
+require_details: true      # a job needs its `get` (client record) to reach Slack
+shortlist_limit: 15        # max `get` calls per run (Upwork allows ~12 calls/min)
+shortlist_margin: 15       # points below threshold still worth a `get`
 
 # value by proposals already sent (upper bound exclusive)
 competition_buckets:

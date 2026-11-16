@@ -37,6 +37,9 @@ def knockouts(job: Job, lanes: list[LaneHit], cfg: Config, now: datetime | None 
     presence = matched(cfg.lanes.physical_presence, text)
     if presence:
         ko.append(f"requiere presencia física ({presence[0]})")
+    lang = matched(cfg.lanes.language_required, text)
+    if lang:
+        ko.append(f"pide un idioma que no hablamos ({lang[0]})")
     if lanes:
         crit = matched(cfg.lanes.lanes[lanes[0].lane].critical_missing, text)
         if crit:

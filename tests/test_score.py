@@ -73,3 +73,17 @@ def test_iso3_country_codes_are_normalized(jobs, cfg, now):
     job.client.country = "IND"
     assert any("país descartado" in k for k in score_job(job, cfg, now).knockouts)
     assert cfg.countries.tier("ARE") == 2
+
+
+def test_language_requirement_is_a_knockout(jobs, cfg, now):
+    job = jobs["1001"].model_copy(deep=True)
+    job.title = "Russian-speaking video editor for a SaaS launch video"
+    assert any("idioma" in k for k in score_job(job, cfg, now).knockouts)
+
+
+def test_job_without_details_cannot_pass(jobs, cfg, now):
+    job = jobs["1001"].model_copy(deep=True)
+    job.has_details = False
+    s = score_job(job, cfg, now)
+    assert not s.knockouts and s.score >= cfg.weights.notify_threshold
+    assert not s.passes

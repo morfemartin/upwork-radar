@@ -37,3 +37,13 @@ def test_search_only_jobs_have_no_details(jobs):
 
 def test_url_tracking_params_removed(jobs):
     assert jobs["1001"].url == "https://www.upwork.com/jobs/~021001"
+
+
+def test_failed_files_are_reported(tmp_path):
+    import json
+    from radar.ingest import failed_files, ingest_dir
+    (tmp_path / "a.json").write_text(json.dumps({"status": "error", "error_code": "SENSITIVE_RATE_LIMIT_EXCEEDED",
+                                                 "retry_after_seconds": 5}))
+    (tmp_path / "b.json").write_text(json.dumps({"status": "ok", "jobs": []}))
+    assert failed_files(tmp_path) == [("a.json", "SENSITIVE_RATE_LIMIT_EXCEEDED", 5)]
+    assert ingest_dir(tmp_path) == []

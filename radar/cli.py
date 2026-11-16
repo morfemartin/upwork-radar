@@ -19,7 +19,7 @@ import typer
 from . import outcome as outcome_mod
 from .brief import read_front_matter, write_brief
 from .config import load_config
-from .ingest import ingest_dir
+from .ingest import failed_files, ingest_dir
 from .lint import lint_file
 from .models import Job, ScoredJob
 from .notify import build_message, post
@@ -72,18 +72,24 @@ def ingest(run: Path) -> None:
     jobs = ingest_dir(run / "raw")
     _dump(run / "jobs.json", jobs)
     typer.echo(f"{len(jobs)} jobs ({sum(j.has_details for j in jobs)} con detalle)")
+    failed = failed_files(run / "raw")
+    for name, code, retry in failed:
+        typer.echo(f"RETRY {name} {code}" + (f" (esperar {retry:g}s)" if retry else ""))
+    if failed:
+        typer.echo(f"{len(failed)} respuesta(s) con error: repite esas llamadas y vuelve a correr `radar ingest`")
 
 
 @app.command()
-def shortlist(run: Path, config: str = ConfigOpt, state: str = StateOpt,
-              margin: float = typer.Option(15.0, help="Points below threshold still worth a `get`")) -> None:
-    """List job ids that deserve a find_jobs `get` (not seen, no knockouts, near threshold)."""
+def shortlist(run: Path, config: str = ConfigOpt, state: str = StateOpt) -> None:
+    """List job ids that deserve a find_jobs `get`: best first, capped at `shortlist_limit`."""
     cfg = load_config(config)
     st = State(state)
-    scored = score_all(_jobs(run), cfg)
-    ids = [s.job.id for s in scored
-           if not st.is_seen(s.job.id) and not s.knockouts and not s.job.has_details
-           and s.score >= cfg.weights.notify_threshold - margin]
+    w = cfg.weights
+    candidates = [s for s in score_all(_jobs(run), cfg)
+                  if not st.is_seen(s.job.id) and not s.knockouts and not s.job.has_details
+                  and s.score >= w.notify_threshold - w.shortlist_margin]
+    candidates.sort(key=lambda s: -s.score)
+    ids = [s.job.id for s in candidates[:w.shortlist_limit]]
     (run / "shortlist.json").write_text(json.dumps(ids, indent=2), encoding="utf-8")
     typer.echo(json.dumps(ids))
 

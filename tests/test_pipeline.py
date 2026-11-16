@@ -69,3 +69,20 @@ def test_outcomes_report(tmp_path):
     record(path, "2", "lost", score=75, probability=0.25)
     rep = report(path)
     assert rep["70-79"]["sent"] == 2 and rep["70-79"]["won"] == 1 and rep["70-79"]["actual"] == 0.5
+
+
+def test_shortlist_is_sorted_and_capped(tmp_path, monkeypatch):
+    import radar.filters as filters
+    import yaml
+    from .conftest import NOW
+    monkeypatch.setattr(filters, "datetime", type("D", (), {"now": staticmethod(lambda tz=None: NOW)}))
+    cfg_dir = tmp_path / "cfg"
+    shutil.copytree(CFG, cfg_dir)
+    w = yaml.safe_load((cfg_dir / "weights.yaml").read_text())
+    w["shortlist_limit"], w["shortlist_margin"] = 1, 60
+    (cfg_dir / "weights.yaml").write_text(yaml.safe_dump(w))
+    run = _run_dir(tmp_path)
+    assert runner.invoke(app, ["ingest", str(run)]).exit_code == 0
+    r = runner.invoke(app, ["shortlist", str(run), "-c", str(cfg_dir), "--state", str(tmp_path / "s.json")])
+    ids = json.loads(r.stdout.strip().splitlines()[-1])
+    assert len(ids) == 1 and ids[0] == "1003"     # best candidate still missing details

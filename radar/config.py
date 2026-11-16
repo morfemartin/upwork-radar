@@ -33,6 +33,7 @@ class LanesConfig(BaseModel):
     lanes: dict[str, LaneConfig]
     negative_global: dict[str, float] = Field(default_factory=dict)
     physical_presence: list[str] = Field(default_factory=list)
+    language_required: list[str] = Field(default_factory=list)  # languages we cannot work in
     flags: dict[str, list[str]] = Field(default_factory=dict)   # H1..H5
     full_mode_terms: list[str] = Field(default_factory=list)
 
@@ -76,6 +77,9 @@ class WeightsConfig(BaseModel):
     pay_reference: float = 3000.0        # USD that maps pay_size to 1.0
     connect_value_usd: float = 0.15
     full_mode_min_chars: int = 1200
+    require_details: bool = True         # a job needs its `get` (client record) to pass
+    shortlist_limit: int = 15            # max `get` calls per run
+    shortlist_margin: float = 15.0       # points below threshold still worth a `get`
 
 
 class Identity(BaseModel):

@@ -162,6 +162,20 @@ def ingest_payloads(payloads: Iterable[dict]) -> list[Job]:
     return list(jobs.values())
 
 
+def failed_files(raw_dir: str | Path) -> list[tuple[str, str, float | None]]:
+    """Raw files that hold an error instead of data: (file, error_code, retry_after_seconds)."""
+    out = []
+    for f in sorted(Path(raw_dir).glob("*.json")):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            out.append((f.name, "INVALID_JSON", None))
+            continue
+        if isinstance(data, dict) and data.get("status") == "error":
+            out.append((f.name, str(data.get("error_code", "ERROR")), data.get("retry_after_seconds")))
+    return out
+
+
 def ingest_dir(raw_dir: str | Path) -> list[Job]:
     files = sorted(Path(raw_dir).glob("*.json"))
     payloads = []

@@ -208,7 +208,8 @@ def score_job(job: Job, cfg: Config, now: datetime | None = None) -> ScoredJob:
     if pay is not None:
         cost = (job.connects_cost or 16) * cfg.weights.connect_value_usd
         sj.expected_value = round(sj.probability * pay - cost, 2)
-    sj.passes = not ko and sj.score >= cfg.weights.notify_threshold
+    sj.passes = (not ko and sj.score >= cfg.weights.notify_threshold
+                 and (job.has_details or not cfg.weights.require_details))
     return sj
 
 

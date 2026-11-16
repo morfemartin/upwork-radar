@@ -231,6 +231,33 @@ physical_presence:
   - must live in
   - local only
 
+# Postings that require a language we cannot work in (we work in English and Spanish).
+language_required:
+  - russian-speaking
+  - russian speaking
+  - fluent russian
+  - native russian
+  - ukrainian-speaking
+  - fluent ukrainian
+  - fluent german
+  - native german
+  - german-speaking
+  - fluent french
+  - native french
+  - french-speaking
+  - fluent portuguese
+  - native portuguese
+  - fluent arabic
+  - native arabic
+  - fluent japanese
+  - native japanese
+  - fluent mandarin
+  - native mandarin
+  - fluent korean
+  - fluent dutch
+  - native dutch
+  - fluent hebrew
+
 # Concept flags from the playbook (H1..H5). Detected here, used by mode/hook choice.
 flags:
   H1: [hand-painted, hand painted, watercolor, hand-drawn, hand drawn, painterly, real artist, no ai]
