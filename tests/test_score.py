@@ -66,3 +66,10 @@ def test_old_jobs_are_knocked_out(jobs, cfg, now):
 
 def test_mode(scored):
     assert scored["1001"].mode == "full"     # launch + several deliverables
+
+
+def test_iso3_country_codes_are_normalized(jobs, cfg, now):
+    job = jobs["1001"].model_copy(deep=True)
+    job.client.country = "IND"
+    assert any("país descartado" in k for k in score_job(job, cfg, now).knockouts)
+    assert cfg.countries.tier("ARE") == 2

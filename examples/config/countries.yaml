@@ -11,4 +11,50 @@ aliases:
   USA: United States
   US: United States
   UK: United Kingdom
+  GBR: United Kingdom
+  GB: United Kingdom
+  AUS: Australia
+  CAN: Canada
+  SGP: Singapore
+  DEU: Germany
+  FRA: France
+  NLD: Netherlands
+  BEL: Belgium
+  CHE: Switzerland
+  AUT: Austria
+  IRL: Ireland
+  LUX: Luxembourg
+  DNK: Denmark
+  SWE: Sweden
+  NOR: Norway
+  FIN: Finland
+  ISL: Iceland
+  ARE: United Arab Emirates
   UAE: United Arab Emirates
+  NZL: New Zealand
+  ESP: Spain
+  ITA: Italy
+  PRT: Portugal
+  POL: Poland
+  CZE: Czech Republic
+  GRC: Greece
+  MEX: Mexico
+  BRA: Brazil
+  ARG: Argentina
+  CHL: Chile
+  COL: Colombia
+  PER: Peru
+  URY: Uruguay
+  CRI: Costa Rica
+  PAN: Panama
+  PRI: Puerto Rico
+  ISR: Israel
+  JPN: Japan
+  KOR: South Korea
+  HKG: Hong Kong
+  QAT: Qatar
+  SAU: Saudi Arabia
+  IND: India
+  PAK: Pakistan
+  BGD: Bangladesh
+  NGA: Nigeria
