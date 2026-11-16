@@ -23,6 +23,7 @@ connect_value_usd: 0.15
 full_mode_min_chars: 1200
 require_details: true      # a job needs its `get` (client record) to reach Slack
 shortlist_limit: 15        # max `get` calls per run (Upwork allows ~12 calls/min)
+max_briefs: 5              # proposals drafted per run (best first); quality over quantity
 shortlist_margin: 15       # points below threshold still worth a `get`
 
 # value by proposals already sent (upper bound exclusive)

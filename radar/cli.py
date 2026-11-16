@@ -20,7 +20,7 @@ from . import outcome as outcome_mod
 from .brief import read_front_matter, write_brief
 from .config import load_config
 from .ingest import failed_files, ingest_dir
-from .lint import lint_file
+from .lint import lint_many
 from .models import Job, ScoredJob
 from .notify import build_message, post
 from .score import score_all
@@ -111,9 +111,9 @@ def brief(run: Path, out: Path = typer.Option(Path("proposals"), help="Proposals
     """Write a Markdown brief for every passing job; print the paths."""
     cfg = load_config(config)
     paths = {}
-    for s in _scored(run):
-        if s.passes:
-            paths[s.job.id] = str(write_brief(s, cfg, out))
+    best = sorted((s for s in _scored(run) if s.passes), key=lambda s: -s.score)
+    for s in best[:cfg.weights.max_briefs]:
+        paths[s.job.id] = str(write_brief(s, cfg, out))
     (run / "briefs.json").write_text(json.dumps(paths, indent=2), encoding="utf-8")
     for p in paths.values():
         typer.echo(p)
@@ -125,8 +125,7 @@ def lint(paths: list[Path], config: str = ConfigOpt, state: str = StateOpt) -> N
     cfg = load_config(config)
     hooks = State(state).hooks_today()
     bad = 0
-    for p in paths:
-        r = lint_file(p, cfg, hooks)
+    for p, r in lint_many(paths, cfg, hooks).items():
         typer.echo(f"{'OK ' if r.ok else 'ERR'} {p}")
         for e in r.errors:
             typer.echo(f"    error: {e}")
@@ -146,12 +145,13 @@ def notify(run: Path, config: str = ConfigOpt, state: str = StateOpt,
     st = State(state)
     briefs = json.loads((run / "briefs.json").read_text(encoding="utf-8")) if (run / "briefs.json").exists() else {}
     by_id = {s.job.id: s for s in _scored(run)}
+    lints = lint_many(list(briefs.values()), cfg, st.hooks_today()) if briefs else {}
     sent = 0
     for job_id, path in briefs.items():
         if st.is_seen(job_id) or job_id not in by_id:
             continue
         sj = by_id[job_id]
-        r = lint_file(path, cfg, st.hooks_today())
+        r = lints[str(path)]
         fm, _ = read_front_matter(Path(path).read_text(encoding="utf-8"))
         url = f"{base_url.rstrip('/')}/{path}" if base_url else None
         msg = build_message(sj, cfg, url, r)

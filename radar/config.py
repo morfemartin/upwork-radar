@@ -79,6 +79,7 @@ class WeightsConfig(BaseModel):
     full_mode_min_chars: int = 1200
     require_details: bool = True         # a job needs its `get` (client record) to pass
     shortlist_limit: int = 15            # max `get` calls per run
+    max_briefs: int = 5                  # max proposals drafted (and notified) per run, best first
     shortlist_margin: float = 15.0       # points below threshold still worth a `get`
 
 

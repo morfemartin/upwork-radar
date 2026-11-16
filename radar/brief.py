@@ -18,6 +18,7 @@ from .models import ScoredJob
 FILL = "<!-- FILL:{name} -->"
 ES_START, ES_END = "<!-- ES:START -->", "<!-- ES:END -->"
 EN_START, EN_END = "<!-- EN:START -->", "<!-- EN:END -->"
+SRC_START, SRC_END = "<!-- SRC:START -->", "<!-- SRC:END -->"
 
 FACTOR_ES = {
     "client": "Calidad del cliente",
@@ -65,6 +66,7 @@ def render(sj: ScoredJob, cfg: Config) -> str:
         "hook_suggested": sj.hook_suggestion,
         "hook_type": None,          # drafting agent sets A-E
         "analog_id": sj.analog_id,  # drafting agent may change it to another portfolio id
+        "budget": j.budget_fixed,
         "score": round(sj.score, 1),
         "probability": sj.probability,
         "status": "draft",
@@ -85,6 +87,7 @@ def render(sj: ScoredJob, cfg: Config) -> str:
         f"[Abrir en Upwork]({j.url}) · arista **{sj.primary_lane}** · modo **{sj.mode}** · "
         f"score **{sj.score:.0f}/100** · P(contratación) **{sj.probability:.0%}**"
         + (f" · EV **{_money(sj.expected_value)}**" if sj.expected_value is not None else ""), "",
+        "## 0. Publicación original", "", SRC_START, j.description.strip(), SRC_END, "",
         "## 1. Qué pide el cliente (en español)", "",
         FILL.format(name="resumen_es"),
         "Resume en español qué quiere el cliente de verdad (resultado, no tarea), entregables, plazos y lo que pide adjuntar.", "",

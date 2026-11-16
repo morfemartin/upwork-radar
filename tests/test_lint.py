@@ -70,3 +70,51 @@ def test_fresh_brief_fails_until_filled(jobs, cfg, now):
     r = lint_text(md, cfg)
     assert any("faltan bloques" in e for e in r.errors)
     assert "## 8. Preguntas de filtro del cliente" in md
+
+
+SRC = ("I am developing a luxury American Mahjong tile collection inspired by Kerala, South India. "
+       "I need a talented illustrator to manually recreate my renderings into hand-drawn artwork, "
+       "then vectorize each tile for production with the manufacturer.")
+
+
+def doc_src(en, title="Hand-Drawn Illustrator for Kerala Mahjong Tile Collection", budget=500):
+    return (f"---\nmode: fast\nhook_type: C\nanalog_id: saas-launch-video\ntitle: {title}\nbudget: {budget}\n---\n"
+            f"<!-- SRC:START -->\n{SRC}\n<!-- SRC:END -->\n"
+            f"<!-- ES:START -->\nBorrador.\n<!-- ES:END -->\n<!-- EN:START -->\n{en}\n<!-- EN:END -->\n")
+
+
+SPECIFIC = ("A Mahjong set lives or dies on consistency: every tile has to read as one family once it sits on the "
+            "table. Kerala gives you a strong visual language, from temple architecture to backwater greens, and "
+            "the risk with AI renderings is that each tile drifts in line weight and detail. I would redraw your "
+            "renderings by hand at one fixed scale, then vectorize them so the manufacturer gets clean, "
+            "production-ready files with matching stroke widths across the whole collection. We did the same for "
+            "a launch video where every screen had to match. Delivery is ten business days for the first suit, with "
+            "two revision rounds. Which suit should we draw first so you can judge the line quality?")
+
+
+def test_specific_proposal_passes_template_checks(cfg):
+    r = lint_text(doc_src(SPECIFIC), cfg)
+    assert not [e for e in r.errors if "plantilla" in e or "genérica" in e], r.errors
+
+
+def test_pasted_title_is_rejected(cfg):
+    en = SPECIFIC.replace("A Mahjong set", "Hand-Drawn Illustrator for Kerala Mahjong Tile Collection: a set", 1)
+    assert any("título" in e for e in lint_text(doc_src(en), cfg).errors)
+
+
+def test_copied_client_sentence_is_rejected(cfg):
+    en = SPECIFIC.replace("We did the same", "I need a talented illustrator to manually recreate my renderings into hand-drawn artwork. We did the same")
+    assert any("copia frases" in e for e in lint_text(doc_src(en), cfg).errors)
+
+
+def test_generic_proposal_is_rejected(cfg):
+    assert any("genérica" in e for e in lint_text(doc_src(GOOD_FAST), cfg).errors)
+
+
+def test_same_template_across_run_is_rejected(cfg, tmp_path):
+    from radar.lint import lint_many
+    a, b = tmp_path / "a.md", tmp_path / "b.md"
+    a.write_text(doc_src(SPECIFIC))
+    b.write_text(doc_src(SPECIFIC.replace("Kerala", "Kerala, India,")))
+    res = lint_many([a, b], cfg)
+    assert all(any("igual a" in e for e in r.errors) for r in res.values())
