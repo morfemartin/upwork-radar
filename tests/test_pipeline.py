@@ -40,7 +40,7 @@ def test_full_cli_pipeline(tmp_path, monkeypatch):
     r = runner.invoke(app, ["lint", briefs["1001"], "-c", CFG, "--state", state])
     assert r.exit_code == 1               # unfilled draft
     r = runner.invoke(app, ["notify", str(run), "-c", CFG, "--state", state, "--dry-run"])
-    assert r.exit_code == 0 and "revisión manual" in r.stdout and "@Sam" in r.stdout
+    assert r.exit_code == 0 and "propuesta en camino" in r.stdout and "para Sam" in r.stdout
 
 
 def test_notify_marks_seen_once(tmp_path, monkeypatch):
@@ -86,3 +86,34 @@ def test_shortlist_is_sorted_and_capped(tmp_path, monkeypatch):
     r = runner.invoke(app, ["shortlist", str(run), "-c", str(cfg_dir), "--state", str(tmp_path / "s.json")])
     ids = json.loads(r.stdout.strip().splitlines()[-1])
     assert len(ids) == 1 and ids[0] == "1003"     # best candidate still missing details
+
+
+def test_announce_then_publish(tmp_path, monkeypatch):
+    import radar.cli as cli
+    import radar.filters as filters
+    from .conftest import NOW
+    from .test_lint import SPECIFIC
+    monkeypatch.setattr(filters, "datetime", type("D", (), {"now": staticmethod(lambda tz=None: NOW)}))
+    posted = []
+    monkeypatch.setattr(cli, "post", lambda msg: posted.append(msg["text"]))
+    run = _run_dir(tmp_path)
+    state = str(tmp_path / "seen.json")
+    out = tmp_path / "p"
+    for cmd in (["ingest", str(run)], ["score", str(run), "-c", CFG, "--state", state],
+                ["brief", str(run), "--out", str(out), "-c", CFG],
+                ["notify", str(run), "-c", CFG, "--state", state]):
+        assert runner.invoke(app, cmd).exit_code == 0
+    assert len(posted) == 1 and "propuesta en camino" in posted[0] and "<@" not in posted[0]
+    r = runner.invoke(app, ["pending", "--state", state])
+    brief = r.stdout.strip().splitlines()[0]
+    # the writer fills the brief
+    text = open(brief).read()
+    import re
+    text = re.sub(r"<!-- FILL:\w+ -->", "Hecho.", text)
+    text = text.replace("hook_type: null", "hook_type: B")
+    text = text.replace("<!-- EN:START -->\nHecho.", "<!-- EN:START -->\n" + SPECIFIC)
+    open(brief, "w").write(text)
+    r = runner.invoke(app, ["publish", brief, "-c", CFG, "--state", state])
+    assert r.exit_code == 0, r.stdout
+    assert len(posted) == 2 and "propuesta" in posted[1]
+    assert runner.invoke(app, ["pending", "--state", state]).stdout.strip() == ""

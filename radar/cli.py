@@ -154,14 +154,17 @@ def notify(run: Path, config: str = ConfigOpt, state: str = StateOpt,
         r = lints[str(path)]
         fm, _ = read_front_matter(Path(path).read_text(encoding="utf-8"))
         url = f"{base_url.rstrip('/')}/{path}" if base_url else None
-        msg = build_message(sj, cfg, url, r)
+        drafted = "<!-- FILL:" not in Path(path).read_text(encoding="utf-8")
+        stage = "ready" if drafted else "announce"
+        msg = build_message(sj, cfg, url, r, stage=stage)
         if dry_run:
             typer.echo(msg["text"] + "\n---")
         else:
             post(msg)
             st.mark(job_id, notified=True, score=sj.score, probability=sj.probability, lane=sj.primary_lane,
-                    identity=sj.identity, assignee=sj.assignee, lint_ok=r.ok, brief=path)
-            if fm.get("hook_type"):
+                    identity=sj.identity, assignee=sj.assignee, lint_ok=r.ok, brief=str(path), run=str(run),
+                    stage="published" if drafted else "announced")
+            if drafted and fm.get("hook_type"):
                 st.use_hook(fm["hook_type"])
         sent += 1
     # jobs scored but not passing are remembered too, so they are not re-scored forever
@@ -171,6 +174,53 @@ def notify(run: Path, config: str = ConfigOpt, state: str = StateOpt,
                 st.mark(s.job.id, notified=False, score=s.score, knockouts=s.knockouts)
         st.save()
     typer.echo(f"{sent} notificaciones {'(dry-run)' if dry_run else 'enviadas'}")
+
+
+@app.command()
+def pending(state: str = StateOpt) -> None:
+    """Briefs announced in Slack whose proposal has not been written and published yet."""
+    st = State(state)
+    for job_id, info in sorted(st.seen.items(), key=lambda kv: -(kv[1].get("score") or 0)):
+        if info.get("stage") == "announced" and info.get("brief") and Path(info["brief"]).exists():
+            typer.echo(info["brief"])
+
+
+@app.command()
+def publish(paths: list[Path], config: str = ConfigOpt, state: str = StateOpt,
+            base_url: str = typer.Option("", envvar="RADAR_BRIEF_BASE_URL"),
+            dry_run: bool = typer.Option(False, "--dry-run")) -> None:
+    """Lint drafted briefs and post the finished proposal to Slack, tagging the sender."""
+    cfg = load_config(config)
+    st = State(state)
+    by_brief = {info.get("brief"): (jid, info) for jid, info in st.seen.items() if info.get("brief")}
+    # compare against every other brief of the same days, so templates are caught across runs
+    days = {p.parent for p in paths}
+    others = [q for d in days for q in d.glob("*.md") if q not in paths]
+    lints = lint_many([*paths, *others], cfg, st.hooks_today())
+    done = 0
+    for p in paths:
+        key = str(p)
+        if key not in by_brief:
+            typer.echo(f"SKIP {p}: no está en el estado (¿lo anunció `radar notify`?)")
+            continue
+        jid, info = by_brief[key]
+        scored = {s.job.id: s for s in _scored(Path(info["run"]))}
+        sj = scored[jid]
+        r = lints[key]
+        fm, _ = read_front_matter(p.read_text(encoding="utf-8"))
+        url = f"{base_url.rstrip('/')}/{p}" if base_url else None
+        msg = build_message(sj, cfg, url, r, stage="ready")
+        if dry_run:
+            typer.echo(msg["text"] + "\n---")
+            continue
+        post(msg)
+        st.mark(jid, stage="published", lint_ok=r.ok)
+        if fm.get("hook_type"):
+            st.use_hook(fm["hook_type"])
+        done += 1
+    if not dry_run:
+        st.save()
+    typer.echo(f"{done} propuesta(s) publicadas")
 
 
 @app.command()
