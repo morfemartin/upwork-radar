@@ -95,7 +95,9 @@ def render(sj: ScoredJob, cfg: Config) -> str:
         f"- Presupuesto: {budget} · duración: {j.duration} · nivel: {j.experience_level}",
         f"- Competencia: {j.activity.proposals if j.activity.proposals is not None else j.activity.proposals_tier} propuestas · "
         f"entrevistando: {j.activity.invited_to_interview} · connects: {j.connects_cost or '?'}",
-        "", "**Alertas**", warnings, "",
+        "", "**Lo que dicen otros freelancers de este cliente**",
+        "\n".join(f"- {t[:200]}" for t in c.feedback[:5]) or "- Sin reseñas", "",
+        "**Alertas**", warnings, "",
         "## 3. Por qué pasó el filtro", "",
         "| Factor | Valor | Peso | Detalle |", "|---|---|---|---|", rows, "",
         f"Aristas detectadas: {', '.join(f'{h.lane} ({h.strength:.2f})' for h in sj.lanes)} · "

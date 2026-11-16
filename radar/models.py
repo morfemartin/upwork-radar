@@ -17,7 +17,7 @@ class Client(BaseModel):
     jobs_posted: int | None = None
     hires: int | None = None             # jobs_with_hires (from `get`)
     hire_rate: float | None = None       # 0-100 (from `get`)
-    feedback_names: list[str] = Field(default_factory=list)  # names seen in feedback, for personalization
+    feedback: list[str] = Field(default_factory=list)  # reviews freelancers left this client (personalization)
 
 
 class Activity(BaseModel):

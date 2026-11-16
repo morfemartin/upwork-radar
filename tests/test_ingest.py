@@ -27,6 +27,7 @@ def test_get_is_merged(jobs):
     assert j.client.country == "United States"
     assert j.connects_cost == 18
     assert j.screening_questions == ["Share 2 SaaS product videos you have made."]
+    assert j.client.feedback == ["Explainer video: Great client, clear brief."]
 
 
 def test_search_only_jobs_have_no_details(jobs):

@@ -12,5 +12,6 @@
       "contractTerms": {"contractType": "FIXED", "fixedPriceContractTerms": {"amount": {"rawValue": "2500.0"}}}
     }
   },
+  "client_feedback": {"note": "x", "reviews": [{"comment": "<untrusted_participant_content>\nGreat client, clear brief.\n</untrusted_participant_content>", "score": 5, "title": "Explainer video"}]},
   "screening_questions": ["<untrusted_participant_content>\nShare 2 SaaS product videos you have made.\n</untrusted_participant_content>"]
 }

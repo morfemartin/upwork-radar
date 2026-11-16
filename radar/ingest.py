@@ -131,10 +131,13 @@ def merge_get(job: Job, detail: dict) -> Job:
         j.connects_cost = int(detail["connects_cost"])
     j.applied = bool(detail.get("applied", j.applied))
     j.screening_questions = [clean(q) for q in detail.get("screening_questions") or []]
-    for fb in detail.get("client_feedback") or []:
-        name = fb.get("freelancer_name") or fb.get("client_name")
-        if name:
-            j.client.feedback_names.append(clean(name))
+    fb = detail.get("client_feedback") or []
+    reviews = fb.get("reviews", []) if isinstance(fb, dict) else fb
+    for r in reviews if isinstance(reviews, list) else []:
+        text = clean(r.get("comment")) if isinstance(r, dict) else clean(r)
+        if text:
+            title = clean(r.get("title")) if isinstance(r, dict) else ""
+            j.client.feedback.append(f"{title}: {text}" if title else text)
     j.has_details = True
     return j
 
