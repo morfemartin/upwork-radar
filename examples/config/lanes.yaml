@@ -10,6 +10,8 @@ lanes:
   motion_ui:
     label: "Motion graphics / UI animation in code"
     priority: 1.0
+    min_budget: 400
+    minor_missing: [davinci fusion, fusion templates, drfx, kling, runway, midjourney, cinema 4d, unreal]
     terms:
       motion graphics: 3
       motion designer: 3
@@ -57,6 +59,8 @@ lanes:
   web:
     label: "Web design & development"
     priority: 0.85
+    min_budget: 400
+    minor_missing: [wordpress elementor, wix, squarespace, webflow ecommerce]
     terms:
       landing page: 4
       website: 3
@@ -92,6 +96,8 @@ lanes:
   techpack:
     label: "Tech packs & garment specs"
     priority: 0.85
+    min_budget: 250
+    minor_missing: [clo 3d expert, gerber, optitex, lectra]
     terms:
       tech pack: 5
       techpack: 5
@@ -125,6 +131,7 @@ lanes:
   branding:
     label: "Brand identity & graphic design"
     priority: 0.6
+    min_budget: 250
     terms:
       brand identity: 5
       branding: 4
@@ -146,6 +153,7 @@ lanes:
   painting:
     label: "Painting, illustration & portraits"
     priority: 0.5
+    min_budget: 200
     terms:
       watercolor: 4
       acrylic: 3
@@ -175,6 +183,8 @@ lanes:
   embroidery:
     label: "Embroidery digitizing"
     priority: 0.5
+    min_budget: 15
+    minor_missing: [hatch embroidery, pulse]
     terms:
       embroidery: 4
       digitizing: 4
@@ -192,6 +202,8 @@ lanes:
   video_edit:
     label: "Video editing"
     priority: 0.55
+    min_budget: 200
+    minor_missing: [premiere pro templates]
     terms:
       video editing: 4
       video editor: 4
@@ -257,6 +269,17 @@ language_required:
   - fluent dutch
   - native dutch
   - fluent hebrew
+
+# The client is only collecting quotes: no start date yet.
+deferred_start:
+  - planning ahead
+  - gather quotes
+  - gathering quotes
+  - collecting quotes
+  - launch date is confirmed
+  - not ready to start
+  - start in a few months
+  - budget approval
 
 # Concept flags from the playbook (H1..H5). Detected here, used by mode/hook choice.
 flags:

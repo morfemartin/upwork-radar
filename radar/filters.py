@@ -44,6 +44,17 @@ def knockouts(job: Job, lanes: list[LaneHit], cfg: Config, now: datetime | None 
         crit = matched(cfg.lanes.lanes[lanes[0].lane].critical_missing, text)
         if crit:
             ko.append(f"pide una skill que no tenemos ({crit[0]})")
+    if lanes:
+        floor = cfg.lanes.lanes[lanes[0].lane].min_budget
+        if floor and job.budget_fixed and 1 < job.budget_fixed < floor / 2:
+            ko.append(f"presupuesto ${job.budget_fixed:,.0f} muy bajo para {lanes[0].lane} (mínimo ${floor:,.0f})")
+        elif floor and job.budget_fixed and 1 < job.budget_fixed < floor:
+            warn.append(f"presupuesto ${job.budget_fixed:,.0f} bajo para {lanes[0].lane} (mínimo ${floor:,.0f}): proponer fases")
+        minor = matched(cfg.lanes.lanes[lanes[0].lane].minor_missing, text)
+        if minor:
+            warn.append(f"pide una herramienta que no usamos ({minor[0]})")
+    if matched(cfg.lanes.deferred_start, text):
+        warn.append("todavía no arranca: solo está cotizando")
     if job.activity.hired > 0 or job.activity.offered > 0:
         ko.append("ya contrató u ofertó a alguien")
     if c.payment_verified is False:

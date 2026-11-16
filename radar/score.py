@@ -127,8 +127,8 @@ def f_pay_speed(job: Job, cfg: Config) -> tuple[float, str]:
     if len(_LIST_ITEM.findall(job.description)) >= 3:
         v += 0.2
         notes.append("entregables claros")
-    if matched(["planning ahead", "launch date is confirmed", "gather quotes", "not ready yet"], job.description.lower()):
-        v -= 0.4
+    if matched(cfg.lanes.deferred_start, job.description.lower()):
+        v = 0.0
         notes.append("arranque diferido")
     return max(0.0, min(1.0, v)), ", ".join(notes) or "sin señales de cobro rápido"
 
@@ -194,6 +194,10 @@ def score_job(job: Job, cfg: Config, now: datetime | None = None) -> ScoredJob:
     ]
     total_w = sum(f.weight for f in factors)
     base = 100 * sum(f.value * f.weight for f in factors) / total_w
+    if lanes and matched(cfg.lanes.lanes[lanes[0].lane].minor_missing, job.text.lower()):
+        base -= 8                        # a tool we don't use lowers the odds, it doesn't kill them
+    if matched(cfg.lanes.deferred_start, job.text.lower()):
+        base -= 10                       # no start date: the hire is weeks away, if ever
 
     sj = ScoredJob(job=job, knockouts=ko, warnings=warn, lanes=lanes, flags=fl, factors=factors,
                    expected_pay=pay, analog_id=analog_id,

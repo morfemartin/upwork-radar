@@ -24,6 +24,8 @@ class LaneConfig(BaseModel):
     terms: dict[str, float]
     negative: dict[str, float] = Field(default_factory=dict)
     critical_missing: list[str] = Field(default_factory=list)
+    minor_missing: list[str] = Field(default_factory=list)   # tools we don't use: penalty, not knockout
+    min_budget: float = 0.0              # fixed budgets under half of this are knocked out
 
 
 class LanesConfig(BaseModel):
@@ -36,6 +38,7 @@ class LanesConfig(BaseModel):
     language_required: list[str] = Field(default_factory=list)  # languages we cannot work in
     flags: dict[str, list[str]] = Field(default_factory=dict)   # H1..H5
     full_mode_terms: list[str] = Field(default_factory=list)
+    deferred_start: list[str] = Field(default_factory=list)  # 'just collecting quotes' signals
 
 
 class CountriesConfig(BaseModel):

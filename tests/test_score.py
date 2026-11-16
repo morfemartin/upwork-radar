@@ -87,3 +87,18 @@ def test_job_without_details_cannot_pass(jobs, cfg, now):
     s = score_job(job, cfg, now)
     assert not s.knockouts and s.score >= cfg.weights.notify_threshold
     assert not s.passes
+
+
+def test_tiny_budget_is_knocked_out(jobs, cfg, now):
+    job = jobs["1001"].model_copy(deep=True)
+    job.budget_fixed = 150
+    assert any("muy bajo" in k for k in score_job(job, cfg, now).knockouts)
+
+
+def test_deferred_start_and_unused_tool_lower_the_score(jobs, cfg, now):
+    base = score_job(jobs["1001"], cfg, now)
+    job = jobs["1001"].model_copy(deep=True)
+    job.description += "\nWe're planning ahead and want templates in DaVinci Fusion (.drfx)."
+    s = score_job(job, cfg, now)
+    assert s.score < base.score - 15
+    assert any("cotizando" in w for w in s.warnings) and any("herramienta" in w for w in s.warnings)
